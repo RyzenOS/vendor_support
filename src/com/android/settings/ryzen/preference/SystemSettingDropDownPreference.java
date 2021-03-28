@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.android.settings.ryzen.preference;
 
 import android.content.Context;
@@ -23,13 +22,12 @@ import android.util.AttributeSet;
 import android.provider.Settings;
 
 
-public class SecureSettingListPreference extends SelfRemovingListPreference {
-
-    public SecureSettingListPreference(Context context, AttributeSet attrs, int defStyle) {
+public class SystemSettingDropDownPreference extends SelfRemovingDropDownPreference {
+    public SystemSettingDropDownPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public SecureSettingListPreference(Context context, AttributeSet attrs) {
+    public SystemSettingDropDownPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -39,17 +37,17 @@ public class SecureSettingListPreference extends SelfRemovingListPreference {
 
     @Override
     protected boolean isPersisted() {
-        return Settings.Secure.getString(getContext().getContentResolver(), getKey()) != null;
+        return Settings.System.getString(getContext().getContentResolver(), getKey()) != null;
     }
 
     @Override
     protected void putString(String key, String value) {
-        Settings.Secure.putString(getContext().getContentResolver(), key, value);
+        Settings.System.putString(getContext().getContentResolver(), key, value);
     }
 
     @Override
     protected String getString(String key, String defaultValue) {
-        String result = Settings.Secure.getString(getContext().getContentResolver(), key);
+        String result = Settings.System.getString(getContext().getContentResolver(), key);
         return result == null ? defaultValue : result;
     }
 }
